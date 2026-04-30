@@ -49,9 +49,7 @@
             </button>
         </form>
 
-        <p class="text-center text-gray-600 dark:text-gray-400 text-sm mt-4">
-            Default credentials: admin@thriftmotors.com / password
-        </p>
+
 
         <p class="text-center text-gray-600 dark:text-gray-400 text-sm mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
             Don't have an account? 

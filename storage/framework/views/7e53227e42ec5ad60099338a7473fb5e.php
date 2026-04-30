@@ -19,7 +19,7 @@
                     next() { this.activeImage = (this.activeImage + 1) % this.images.length },
                     prev() { this.activeImage = (this.activeImage - 1 + this.images.length) % this.images.length }
                 }" class="mb-8">
-                <div class="mb-4 bg-gray-100 rounded-lg overflow-hidden relative group">
+                <div class="mb-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative group border border-transparent dark:border-gray-700">
                     <?php if($car->images->count() > 0): ?>
                         <img :src="images[activeImage]"
                              class="w-full h-[500px] object-cover transition duration-300"
@@ -35,8 +35,8 @@
                             </button>
                         <?php endif; ?>
                     <?php else: ?>
-                        <div class="w-full h-[500px] flex items-center justify-center">
-                            <i class="fas fa-image text-gray-400 text-5xl"></i>
+                        <div class="w-full h-[500px] flex items-center justify-center bg-gray-200 dark:bg-gray-800">
+                            <i class="fas fa-image text-gray-400 dark:text-gray-600 text-5xl"></i>
                         </div>
                     <?php endif; ?>
 
@@ -61,7 +61,7 @@
                         <?php $__currentLoopData = $car->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <button @click="activeImage = <?php echo e($index); ?>"
                                     :class="{ 'ring-2 ring-red-600': activeImage === <?php echo e($index); ?> }"
-                                    class="rounded-lg overflow-hidden border-2 border-gray-300">
+                                    class="rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-600">
                                 <img src="<?php echo e($image->image_url); ?>" alt="Thumbnail" class="w-full h-16 object-cover">
                             </button>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -70,11 +70,11 @@
             </div>
 
             
-            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-transparent dark:border-gray-700 p-6 mb-6 transition-colors duration-300">
                 <div class="flex justify-between items-start mb-4">
                     <div>
-                        <h1 class="text-3xl font-bold mb-2"><?php echo e($car->title); ?></h1>
-                        <p class="text-gray-600">
+                        <h1 class="text-3xl font-bold mb-2 dark:text-white"><?php echo e($car->title); ?></h1>
+                        <p class="text-gray-600 dark:text-gray-400">
                             <i class="fas fa-clock mr-2"></i>Listed <?php echo e($car->created_at->diffForHumans()); ?>
 
                         </p>
@@ -86,39 +86,39 @@
                         </span>
                     <?php endif; ?>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg">
-                    <div><p class="text-gray-600 text-sm">Year</p><p class="text-xl font-semibold"><?php echo e($car->year); ?></p></div>
-                    <div><p class="text-gray-600 text-sm">Mileage</p><p class="text-xl font-semibold"><?php echo e(number_format($car->mileage)); ?> km</p></div>
-                    <div><p class="text-gray-600 text-sm">Color</p><p class="text-xl font-semibold"><?php echo e($car->color); ?></p></div>
-                    <div><p class="text-gray-600 text-sm">Seats</p><p class="text-xl font-semibold"><?php echo e($car->seats); ?></p></div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div><p class="text-gray-600 dark:text-gray-400 text-sm">Year</p><p class="text-xl font-semibold dark:text-gray-200"><?php echo e($car->year); ?></p></div>
+                    <div><p class="text-gray-600 dark:text-gray-400 text-sm">Mileage</p><p class="text-xl font-semibold dark:text-gray-200"><?php echo e(number_format($car->mileage)); ?> km</p></div>
+                    <div><p class="text-gray-600 dark:text-gray-400 text-sm">Color</p><p class="text-xl font-semibold dark:text-gray-200"><?php echo e($car->color); ?></p></div>
+                    <div><p class="text-gray-600 dark:text-gray-400 text-sm">Seats</p><p class="text-xl font-semibold dark:text-gray-200"><?php echo e($car->seats); ?></p></div>
                 </div>
             </div>
 
             
-            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                <h2 class="text-2xl font-bold mb-4">Specifications</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-transparent dark:border-gray-700 p-6 mb-6 transition-colors duration-300">
+                <h2 class="text-2xl font-bold mb-4 dark:text-white">Specifications</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="border-l-4 border-red-600 pl-4 py-2">
-                        <p class="text-gray-600 text-sm">Brand</p><p class="font-semibold"><?php echo e($car->brand->name); ?></p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Brand</p><p class="font-semibold dark:text-gray-200"><?php echo e($car->brand->name); ?></p>
                     </div>
                     <div class="border-l-4 border-red-600 pl-4 py-2">
-                        <p class="text-gray-600 text-sm">Fuel Type</p><p class="font-semibold"><?php echo e($car->fuelType->name); ?></p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Fuel Type</p><p class="font-semibold dark:text-gray-200"><?php echo e($car->fuelType->name); ?></p>
                     </div>
                     <div class="border-l-4 border-red-600 pl-4 py-2">
-                        <p class="text-gray-600 text-sm">Transmission</p><p class="font-semibold"><?php echo e($car->transmission->name); ?></p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Transmission</p><p class="font-semibold dark:text-gray-200"><?php echo e($car->transmission->name); ?></p>
                     </div>
                 </div>
             </div>
 
             
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-bold mb-4">Description</h2>
-                <p class="text-gray-700 leading-relaxed"><?php echo e($car->description); ?></p>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-transparent dark:border-gray-700 p-6 transition-colors duration-300">
+                <h2 class="text-2xl font-bold mb-4 dark:text-white">Description</h2>
+                <p class="text-gray-700 dark:text-gray-300 leading-relaxed"><?php echo e($car->description); ?></p>
                 <?php if($car->features && is_array($car->features) && count($car->features) > 0): ?>
-                    <h3 class="text-lg font-semibold mt-6 mb-3">Features</h3>
+                    <h3 class="text-lg font-semibold mt-6 mb-3 dark:text-white">Features</h3>
                     <ul class="grid grid-cols-2 gap-3">
                         <?php $__currentLoopData = $car->features; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <li class="flex items-center">
+                            <li class="flex items-center dark:text-gray-300">
                                 <i class="fas fa-check text-green-600 mr-2"></i> <?php echo e($feature); ?>
 
                             </li>
@@ -130,20 +130,20 @@
 
         
         <aside class="lg:col-span-1">
-            <div class="bg-white rounded-lg shadow-md p-6 mb-6 sticky top-20">
-                <p class="text-gray-600 text-sm mb-2">Price</p>
-                <p class="text-4xl font-bold text-red-600 mb-1">KES <?php echo e(number_format($car->price, 0)); ?></p>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-transparent dark:border-gray-700 p-6 mb-6 sticky top-20 transition-colors duration-300">
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">Price</p>
+                <p class="text-4xl font-bold text-red-600 dark:text-red-500 mb-1">KES <?php echo e(number_format($car->price, 0)); ?></p>
                 <?php if($car->is_negotiable): ?>
                     <p class="text-green-600 font-semibold mb-4"><i class="fas fa-handshake mr-2"></i>Negotiable</p>
                 <?php endif; ?>
 
                 
                 <?php if($car->status === 'reserved'): ?>
-                    <div class="bg-orange-50 border border-orange-300 text-orange-800 rounded-lg p-3 mb-4 text-sm">
+                    <div class="bg-orange-50 dark:bg-orange-900/30 border border-orange-300 dark:border-orange-700 text-orange-800 dark:text-orange-400 rounded-lg p-3 mb-4 text-sm">
                         <i class="fas fa-lock mr-2"></i><strong>Reserved</strong> — This car is currently reserved.
                     </div>
                 <?php elseif($car->status === 'sold'): ?>
-                    <div class="bg-red-50 border border-red-300 text-red-800 rounded-lg p-3 mb-4 text-sm">
+                    <div class="bg-red-50 dark:bg-red-900/30 border border-red-300 dark:border-red-700 text-red-800 dark:text-red-400 rounded-lg p-3 mb-4 text-sm">
                         <i class="fas fa-times-circle mr-2"></i><strong>Sold</strong> — This car is no longer available.
                     </div>
                 <?php endif; ?>
@@ -192,10 +192,10 @@
                 </div>
 
                 
-                <div class="border-t pt-4">
-                    <h3 class="font-bold mb-2 text-sm uppercase tracking-wide text-gray-500">Seller</h3>
-                    <p class="font-semibold"><?php echo e($car->seller_name); ?></p>
-                    <a href="tel:<?php echo e($car->seller_phone); ?>" class="text-red-600 hover:underline text-sm"><?php echo e($car->seller_phone); ?></a>
+                <div class="border-t dark:border-gray-700 pt-4 mt-6">
+                    <h3 class="font-bold mb-2 text-sm uppercase tracking-wide text-gray-500 dark:text-gray-400">Seller</h3>
+                    <p class="font-semibold dark:text-white"><?php echo e($car->seller_name); ?></p>
+                    <a href="tel:<?php echo e($car->seller_phone); ?>" class="text-red-600 dark:text-red-400 hover:underline text-sm"><?php echo e($car->seller_phone); ?></a>
                 </div>
             </div>
         </aside>
@@ -247,27 +247,27 @@
     <div class="absolute inset-0 bg-black bg-opacity-60" @click="closeModal()"></div>
 
     
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md z-10" @click.stop>
+    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md z-10 border border-transparent dark:border-gray-700 transition-colors duration-300" @click.stop>
 
         
-        <div class="flex items-center justify-between p-6 border-b">
+        <div class="flex items-center justify-between p-6 border-b dark:border-gray-700">
             <div>
-                <h3 class="text-xl font-bold">Reserve This Car</h3>
-                <p class="text-sm text-gray-500 mt-1"><?php echo e($car->title); ?></p>
+                <h3 class="text-xl font-bold dark:text-white">Reserve This Car</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1"><?php echo e($car->title); ?></p>
             </div>
-            <button @click="closeModal()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            <button @click="closeModal()" class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-2xl leading-none">&times;</button>
         </div>
 
         
         <div x-show="step === 'form'" class="p-6 space-y-5">
             
-            <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 rounded-xl p-4">
                 <div class="flex items-center gap-3">
-                    <div class="text-3xl font-bold text-red-600">
+                    <div class="text-3xl font-bold text-red-600 dark:text-red-500">
                         KES <?php echo e(number_format(config('thriftmotors.deposit_amount', 5000))); ?>
 
                     </div>
-                    <div class="text-sm text-red-700">
+                    <div class="text-sm text-red-700 dark:text-red-400">
                         <p class="font-semibold">Reservation Deposit</p>
                         <p>Secures this car for <strong>14 days</strong></p>
                     </div>
@@ -275,21 +275,21 @@
             </div>
 
             <div>
-                <label class="block text-sm font-semibold mb-1">Your Name *</label>
+                <label class="block text-sm font-semibold mb-1 dark:text-gray-300">Your Name *</label>
                 <input type="text" x-model="name" placeholder="John Doe"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                <p x-show="errors.customer_name" x-text="errors.customer_name" class="text-red-600 text-xs mt-1"></p>
+                       class="w-full px-4 py-2.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-white dark:placeholder-gray-400">
+                <p x-show="errors.customer_name" x-text="errors.customer_name" class="text-red-600 dark:text-red-400 text-xs mt-1"></p>
             </div>
 
             <div>
-                <label class="block text-sm font-semibold mb-1">M-Pesa Phone Number *</label>
+                <label class="block text-sm font-semibold mb-1 dark:text-gray-300">M-Pesa Phone Number *</label>
                 <input type="tel" x-model="phone" placeholder="0712 345 678"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                <p class="text-xs text-gray-500 mt-1">Kenyan number, e.g. 0712345678</p>
-                <p x-show="errors.phone" x-text="errors.phone" class="text-red-600 text-xs mt-1"></p>
+                       class="w-full px-4 py-2.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-white dark:placeholder-gray-400">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Kenyan number, e.g. 0712345678</p>
+                <p x-show="errors.phone" x-text="errors.phone" class="text-red-600 dark:text-red-400 text-xs mt-1"></p>
             </div>
 
-            <p x-show="generalError" x-text="generalError" class="bg-red-50 text-red-700 text-sm p-3 rounded-lg"></p>
+            <p x-show="generalError" x-text="generalError" class="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-sm p-3 rounded-lg border border-red-200 dark:border-red-800"></p>
 
             <button @click="submit()" :disabled="loading"
                     class="w-full bg-red-600 text-white py-3 rounded-xl font-bold text-lg hover:bg-red-700 transition disabled:opacity-60 flex items-center justify-center gap-2">
@@ -311,23 +311,23 @@
         
         <div x-show="step === 'waiting'" class="p-8 text-center space-y-6">
             <div class="flex justify-center">
-                <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
-                    <svg class="animate-spin h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24">
+                <div class="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                    <svg class="animate-spin h-10 w-10 text-green-600 dark:text-green-500" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
                     </svg>
                 </div>
             </div>
             <div>
-                <h4 class="text-xl font-bold text-gray-800">Check Your Phone</h4>
-                <p class="text-gray-600 mt-2">An M-Pesa prompt has been sent to <strong x-text="phone"></strong>.</p>
-                <p class="text-gray-600 mt-1">Enter your <strong>M-Pesa PIN</strong> to complete the reservation.</p>
+                <h4 class="text-xl font-bold text-gray-800 dark:text-white">Check Your Phone</h4>
+                <p class="text-gray-600 dark:text-gray-400 mt-2">An M-Pesa prompt has been sent to <strong x-text="phone" class="dark:text-gray-200"></strong>.</p>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">Enter your <strong>M-Pesa PIN</strong> to complete the reservation.</p>
             </div>
-            <div class="bg-green-50 border border-green-200 rounded-xl p-4 text-sm text-green-800">
+            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 rounded-xl p-4 text-sm text-green-800 dark:text-green-400">
                 <i class="fas fa-info-circle mr-1"></i>
                 This page will update automatically once payment is confirmed.
             </div>
-            <button @click="closeModal()" class="text-gray-500 hover:text-gray-700 text-sm underline">
+            <button @click="closeModal()" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-sm underline">
                 Cancel
             </button>
         </div>
@@ -340,18 +340,18 @@
                 </div>
             </div>
             <div>
-                <h4 class="text-2xl font-bold text-green-700">Car Reserved! 🎉</h4>
-                <p class="text-gray-600 mt-2">Your deposit was received. This car is now secured for <strong>14 days</strong>.</p>
+                <h4 class="text-2xl font-bold text-green-700 dark:text-green-500">Car Reserved! 🎉</h4>
+                <p class="text-gray-600 dark:text-gray-400 mt-2">Your deposit was received. This car is now secured for <strong>14 days</strong>.</p>
             </div>
-            <div class="bg-green-50 border border-green-200 rounded-xl p-4 text-sm text-green-800">
+            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 rounded-xl p-4 text-sm text-green-800 dark:text-green-400">
                 <i class="fas fa-calendar-alt mr-1"></i>
-                Expires: <strong x-text="expiresAt"></strong>
+                Expires: <strong x-text="expiresAt" class="dark:text-green-300"></strong>
             </div>
             <a :href="whatsappUrl" target="_blank"
                class="block w-full bg-green-500 text-white py-3 rounded-xl font-bold hover:bg-green-600 transition">
                 <i class="fab fa-whatsapp mr-2"></i> Message Seller to Schedule Viewing
             </a>
-            <button @click="closeModal()" class="block w-full text-gray-600 hover:text-gray-800 text-sm underline">
+            <button @click="closeModal()" class="block w-full text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-sm underline">
                 Close
             </button>
         </div>
@@ -359,57 +359,57 @@
         
         <div x-show="step === 'error'" class="p-8 text-center space-y-6">
             <div class="flex justify-center">
-                <div class="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center">
-                    <i class="fas fa-times text-red-600 text-4xl"></i>
+                <div class="w-20 h-20 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                    <i class="fas fa-times text-red-600 dark:text-red-500 text-4xl"></i>
                 </div>
             </div>
             <div>
-                <h4 class="text-xl font-bold text-red-700">Payment Not Completed</h4>
-                <p class="text-gray-600 mt-2" x-text="generalError"></p>
+                <h4 class="text-xl font-bold text-red-700 dark:text-red-500">Payment Not Completed</h4>
+                <p class="text-gray-600 dark:text-gray-400 mt-2" x-text="generalError"></p>
             </div>
             <button @click="step = 'form'; generalError = ''"
                     class="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition">
                 Try Again
             </button>
-            <button @click="closeModal()" class="block w-full text-gray-500 text-sm underline">Cancel</button>
+            <button @click="closeModal()" class="block w-full text-gray-500 dark:text-gray-400 text-sm underline">Cancel</button>
         </div>
     </div>
 </div>
 
 
-<div id="inquiryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-lg shadow-lg max-w-md w-full">
-        <div class="p-6 border-b flex justify-between items-center">
-            <h3 class="text-xl font-bold">Send Inquiry</h3>
-            <button onclick="document.getElementById('inquiryModal').classList.add('hidden')" class="text-gray-600 hover:text-gray-900 text-2xl">&times;</button>
+<div id="inquiryModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 transition-opacity">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full border border-transparent dark:border-gray-700">
+        <div class="p-6 border-b dark:border-gray-700 flex justify-between items-center">
+            <h3 class="text-xl font-bold dark:text-white">Send Inquiry</h3>
+            <button onclick="document.getElementById('inquiryModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-2xl leading-none">&times;</button>
         </div>
         <form action="<?php echo e(route('inquiries.store', $car)); ?>" method="POST" class="p-6 space-y-4">
             <?php echo csrf_field(); ?>
             <div>
-                <label class="block text-sm font-semibold mb-2">Name *</label>
+                <label class="block text-sm font-semibold mb-2 dark:text-gray-300">Name *</label>
                 <input type="text" name="customer_name" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                       class="w-full px-4 py-2.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-white">
             </div>
             <div>
-                <label class="block text-sm font-semibold mb-2">Email *</label>
+                <label class="block text-sm font-semibold mb-2 dark:text-gray-300">Email *</label>
                 <input type="email" name="customer_email" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                       class="w-full px-4 py-2.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-white">
             </div>
             <div>
-                <label class="block text-sm font-semibold mb-2">Phone *</label>
+                <label class="block text-sm font-semibold mb-2 dark:text-gray-300">Phone *</label>
                 <input type="tel" name="customer_phone" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                       class="w-full px-4 py-2.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-white">
             </div>
             <div>
-                <label class="block text-sm font-semibold mb-2">Message</label>
+                <label class="block text-sm font-semibold mb-2 dark:text-gray-300">Message</label>
                 <textarea name="message" rows="3"
-                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                          class="w-full px-4 py-2.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-white dark:placeholder-gray-400"
                           placeholder="Tell the seller more about your interest…"></textarea>
             </div>
-            <div class="flex gap-3">
-                <button type="submit" class="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 font-semibold">Send</button>
+            <div class="flex gap-3 mt-6">
+                <button type="submit" class="flex-1 bg-red-600 text-white py-3 rounded-xl hover:bg-red-700 font-bold transition">Send Inquiry</button>
                 <button type="button" onclick="document.getElementById('inquiryModal').classList.add('hidden')"
-                        class="flex-1 bg-gray-200 py-2 rounded-lg hover:bg-gray-300 font-semibold">Cancel</button>
+                        class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-3 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 font-bold transition">Cancel</button>
             </div>
         </form>
     </div>
