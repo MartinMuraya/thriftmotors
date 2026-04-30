@@ -150,43 +150,55 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-16 py-8 border-t border-gray-800">
+    <footer class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white mt-16 py-12 border-t border-gray-200 dark:border-gray-800 transition-colors duration-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">ThriftMotors</h3>
-                    <p class="text-gray-400">Premium car marketplace for finding your perfect vehicle.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-red-600 dark:text-red-500">ThriftMotors</h3>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Your premium marketplace for quality vehicles. We bring transparency and trust to your car buying experience.</p>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="<?php echo e(route('home')); ?>" class="hover:text-white transition">Home</a></li>
-                        <li><a href="<?php echo e(route('cars.index')); ?>" class="hover:text-white transition">Buy a Car</a></li>
-                        <li><a href="<?php echo e(route('cars.hire')); ?>" class="hover:text-white transition">Hire a Car</a></li>
+                    <h4 class="font-bold mb-6 text-gray-900 dark:text-white uppercase tracking-wider text-sm">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li><a href="<?php echo e(route('home')); ?>" class="hover:text-red-600 dark:hover:text-red-400 transition flex items-center"><i class="fas fa-chevron-right text-xs mr-2 opacity-50"></i>Home</a></li>
+                        <li><a href="<?php echo e(route('cars.index')); ?>" class="hover:text-red-600 dark:hover:text-red-400 transition flex items-center"><i class="fas fa-chevron-right text-xs mr-2 opacity-50"></i>Buy a Car</a></li>
+                        <li><a href="<?php echo e(route('cars.hire')); ?>" class="hover:text-red-600 dark:hover:text-red-400 transition flex items-center"><i class="fas fa-chevron-right text-xs mr-2 opacity-50"></i>Hire a Car</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Contact</h4>
-                    <p class="text-gray-400">Email: info@thriftmotors.com</p>
-                    <p class="text-gray-400">Phone: +254 700 000000</p>
+                    <h4 class="font-bold mb-6 text-gray-900 dark:text-white uppercase tracking-wider text-sm">Contact Us</h4>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-red-600 dark:text-red-500"></i>
+                            <span>info@thriftmotors.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone mt-1 mr-3 text-red-600 dark:text-red-500"></i>
+                            <span>+254 700 000000</span>
+                        </li>
+                    </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <h4 class="font-bold mb-6 text-gray-900 dark:text-white uppercase tracking-wider text-sm">Follow Us</h4>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition text-xl">
-                            <i class="fab fa-facebook"></i>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition text-xl">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition text-xl">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 dark:text-gray-500 text-sm">
                 <p>&copy; <?php echo e(date('Y')); ?> ThriftMotors. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
