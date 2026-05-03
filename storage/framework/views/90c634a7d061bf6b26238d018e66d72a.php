@@ -2,10 +2,10 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="max-w-md mx-auto px-4 py-16">
-    <div class="bg-white rounded-lg shadow-md p-8">
-        <h2 class="text-2xl font-bold mb-4 text-center">Reset Password</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-transparent dark:border-gray-700 p-8 transition-colors duration-300">
+        <h2 class="text-2xl font-bold mb-4 text-center dark:text-white">Reset Password</h2>
         
-        <p class="text-sm text-gray-600 mb-6 text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 text-center">
             Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
         </p>
 
@@ -20,14 +20,14 @@
             <?php echo csrf_field(); ?>
 
             <div>
-                <label class="block text-sm font-semibold mb-2">Email</label>
+                <label class="block text-sm font-semibold mb-2 dark:text-gray-300">Email</label>
                 <input 
                     type="email" 
                     name="email" 
                     value="<?php echo e(old('email')); ?>"
                     required 
                     autofocus
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    class="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-white"
                 >
                 <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -49,8 +49,8 @@ unset($__errorArgs, $__bag); ?>
             </button>
         </form>
 
-        <p class="text-center text-gray-600 text-sm mt-6">
-            <a href="<?php echo e(route('login')); ?>" class="text-red-600 hover:underline">Back to Login</a>
+        <p class="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
+            <a href="<?php echo e(route('login')); ?>" class="text-red-600 dark:text-red-400 hover:underline">Back to Login</a>
         </p>
     </div>
 </div>
