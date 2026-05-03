@@ -39,7 +39,7 @@
         <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden" @click="sidebarOpen = false"></div>
 
         <!-- Sidebar -->
-        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 dark:bg-gray-900 border-r dark:border-gray-800 text-white transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:flex md:flex-col">
+        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 text-gray-700 dark:text-white transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:flex md:flex-col">
             <div class="p-6 flex items-center justify-between">
                 <div>
                     <h1 class="text-2xl font-bold text-red-600 dark:text-red-500">
@@ -47,47 +47,47 @@
                     </h1>
                     <p class="text-sm text-gray-400 mt-1">Admin Panel</p>
                 </div>
-                <button @click="sidebarOpen = false" class="md:hidden text-gray-400 hover:text-white">
+                <button @click="sidebarOpen = false" class="md:hidden text-gray-400 hover:text-gray-600 dark:hover:text-white">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
 
-            <nav class="flex-1 px-4 space-y-2 overflow-y-auto">
-                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.dashboard') ? 'bg-gray-800 text-red-500' : '' }}">
+            <nav class="flex-1 px-4 space-y-2 overflow-y-auto pt-4">
+                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded-lg transition {{ request()->routeIs('admin.dashboard') ? 'bg-red-50 dark:bg-gray-800 text-red-600 dark:text-red-500 font-bold' : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
                     <i class="fas fa-chart-line mr-2 w-5"></i> Dashboard
                 </a>
-                <a href="{{ route('admin.cars.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.cars.index') ? 'bg-gray-800 text-red-500' : '' }}">
+                <a href="{{ route('admin.cars.index') }}" class="block px-4 py-2 rounded-lg transition {{ request()->routeIs('admin.cars.index') ? 'bg-red-50 dark:bg-gray-800 text-red-600 dark:text-red-500 font-bold' : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
                     <i class="fas fa-car mr-2 w-5"></i> Manage Cars
                 </a>
-                <a href="{{ route('admin.cars.create') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.cars.create') ? 'bg-gray-800 text-red-500' : '' }}">
+                <a href="{{ route('admin.cars.create') }}" class="block px-4 py-2 rounded-lg transition {{ request()->routeIs('admin.cars.create') ? 'bg-red-50 dark:bg-gray-800 text-red-600 dark:text-red-500 font-bold' : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
                     <i class="fas fa-plus mr-2 w-5"></i> Add New Car
                 </a>
-                <a href="{{ route('admin.inquiries.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.inquiries.*') ? 'bg-gray-800 text-red-500' : '' }}">
+                <a href="{{ route('admin.inquiries.index') }}" class="block px-4 py-2 rounded-lg transition {{ request()->routeIs('admin.inquiries.*') ? 'bg-red-50 dark:bg-gray-800 text-red-600 dark:text-red-500 font-bold' : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
                     <i class="fas fa-envelope mr-2 w-5"></i> Inquiries
                     @php $unread = \App\Models\Inquiry::where('is_read', false)->count(); @endphp
                     @if($unread > 0)
-                        <span class="ml-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded">{{ $unread }}</span>
+                        <span class="ml-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">{{ $unread }}</span>
                     @endif
                 </a>
-                <a href="{{ route('admin.reservations.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.reservations.*') ? 'bg-gray-800 text-red-500' : '' }}">
+                <a href="{{ route('admin.reservations.index') }}" class="block px-4 py-2 rounded-lg transition {{ request()->routeIs('admin.reservations.*') ? 'bg-red-50 dark:bg-gray-800 text-red-600 dark:text-red-500 font-bold' : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
                     <i class="fas fa-key mr-2 w-5"></i> Reservations
                     @php $pendingRes = \App\Models\Reservation::where('status', 'pending')->count(); @endphp
                     @if($pendingRes > 0)
-                        <span class="ml-2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded">{{ $pendingRes }}</span>
+                        <span class="ml-2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">{{ $pendingRes }}</span>
                     @endif
                 </a>
-                <a href="{{ route('admin.about.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.about.*') ? 'bg-gray-800 text-red-500' : '' }}">
+                <a href="{{ route('admin.about.index') }}" class="block px-4 py-2 rounded-lg transition {{ request()->routeIs('admin.about.*') ? 'bg-red-50 dark:bg-gray-800 text-red-600 dark:text-red-500 font-bold' : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
                     <i class="fas fa-info-circle mr-2 w-5"></i> Manage About Us
                 </a>
-                <a href="{{ route('home') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition md:hidden text-gray-300">
+                <a href="{{ route('home') }}" class="block px-4 py-2 rounded-lg transition md:hidden hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300">
                     <i class="fas fa-globe mr-2 w-5"></i> View Site
                 </a>
             </nav>
 
-            <div class="p-4 border-t border-gray-800">
+            <div class="p-4 border-t border-gray-200 dark:border-gray-800">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full text-left px-4 py-2 rounded hover:bg-gray-800 transition">
+                    <button type="submit" class="w-full text-left px-4 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-600 dark:text-gray-300 hover:text-red-600 transition">
                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
                     </button>
                 </form>
