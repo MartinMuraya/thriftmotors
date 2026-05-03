@@ -76,6 +76,9 @@
                         <span class="ml-2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded">{{ $pendingRes }}</span>
                     @endif
                 </a>
+                <a href="{{ route('admin.about.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.about.*') ? 'bg-gray-800 text-red-500' : '' }}">
+                    <i class="fas fa-info-circle mr-2 w-5"></i> Manage About Us
+                </a>
             </nav>
 
             <div class="p-4 border-t border-gray-800">

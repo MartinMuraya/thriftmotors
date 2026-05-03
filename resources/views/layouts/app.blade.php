@@ -48,9 +48,35 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="{{ route('home') }}" class="py-5 hover:text-red-600 dark:hover:text-red-400 transition {{ request()->routeIs('home') ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Home</a>
-                    <a href="{{ route('cars.index') }}" class="py-5 hover:text-red-600 dark:hover:text-red-400 transition {{ request()->routeIs('cars.index') ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Buy a Car</a>
-                    <a href="{{ route('cars.hire') }}" class="py-5 hover:text-red-600 dark:hover:text-red-400 transition {{ request()->routeIs('cars.hire') ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Hire a Car</a>
-                    <a href="{{ route('services') }}" class="py-5 hover:text-red-600 dark:hover:text-red-400 transition {{ request()->routeIs('services') ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Services</a>
+                    <a href="{{ route('about') }}" class="py-5 hover:text-red-600 dark:hover:text-red-400 transition {{ request()->routeIs('about') ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">About Us</a>
+                    
+                    {{-- Services Dropdown --}}
+                    <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                        <button class="py-5 flex items-center hover:text-red-600 dark:hover:text-red-400 transition {{ request()->routeIs('services') || request()->routeIs('cars.index') || request()->routeIs('cars.hire') ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">
+                            Services
+                            <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                        </button>
+                        <div x-show="open" 
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="transform opacity-0 scale-95"
+                             x-transition:enter-end="transform opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="transform opacity-100 scale-100"
+                             x-transition:leave-end="transform opacity-0 scale-95"
+                             class="absolute left-0 mt-0 w-48 bg-white dark:bg-gray-800 shadow-xl py-2 border border-gray-100 dark:border-gray-700 z-50">
+                            <a href="{{ route('cars.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 {{ request()->routeIs('cars.index') ? 'text-red-600 font-bold' : '' }}">
+                                <i class="fas fa-shopping-cart mr-2 text-xs opacity-50"></i> Buy a Car
+                            </a>
+                            <a href="{{ route('cars.hire') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 {{ request()->routeIs('cars.hire') ? 'text-red-600 font-bold' : '' }}">
+                                <i class="fas fa-key mr-2 text-xs opacity-50"></i> Hire a Car
+                            </a>
+                            <div class="border-t dark:border-gray-700 my-1"></div>
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <i class="fas fa-concierge-bell mr-2 text-xs opacity-50"></i> All Services
+                            </a>
+                        </div>
+                    </div>
+
                     <a href="{{ route('contact') }}" class="py-5 hover:text-red-600 dark:hover:text-red-400 transition {{ request()->routeIs('contact') ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Contact</a>
                 </div>
 
@@ -136,9 +162,20 @@
         <div x-show="mobileMenuOpen" x-collapse x-cloak class="md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">Home</a>
-                <a href="{{ route('cars.index') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('cars.index') ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">Buy a Car</a>
-                <a href="{{ route('cars.hire') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('cars.hire') ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">Hire a Car</a>
-                <a href="{{ route('services') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('services') ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">Services</a>
+                <a href="{{ route('about') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('about') ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">About Us</a>
+                
+                <div x-data="{ open: false }">
+                    <button @click="open = !open" class="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <span>Services</span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+                    <div x-show="open" x-collapse class="pl-4 space-y-1">
+                        <a href="{{ route('cars.index') }}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-red-600">Buy a Car</a>
+                        <a href="{{ route('cars.hire') }}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-red-600">Hire a Car</a>
+                        <a href="{{ route('services') }}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-red-600">All Services</a>
+                    </div>
+                </div>
+
                 <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('contact') ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">Contact</a>
             </div>
             <div class="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">

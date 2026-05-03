@@ -14,6 +14,11 @@ class PageController extends Controller
         return view('pages.services');
     }
 
+    public function about()
+    {
+        return view('pages.about');
+    }
+
     public function hireCars()
     {
         $cars = Car::with(['brand', 'primaryImage'])

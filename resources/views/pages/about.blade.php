@@ -2,17 +2,55 @@
 
 @section('title', 'About Us - ThriftMotors')
 
+@php
+    $content = \App\Models\AboutContent::first() ?? new \App\Models\AboutContent([
+        'hero_title' => 'Redefining the Car Marketplace',
+        'hero_description' => 'ThriftMotors is Kenya\'s premier destination for high-quality vehicles...',
+        'stat_cars_sold' => '500+',
+        'stat_happy_clients' => '1.2k',
+        'stat_partner_dealers' => '50+',
+        'experience_years' => 10
+    ]);
+    $slides = \App\Models\AboutSlide::where('is_active', true)->orderBy('order')->get();
+@endphp
+
 @section('content')
 <div class="bg-white dark:bg-gray-900 transition-colors duration-300">
-    {{-- Hero Section --}}
-    <div class="relative py-20 overflow-hidden bg-gray-900">
-        <div class="absolute inset-0 opacity-40">
-            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=2000" alt="About Hero" class="w-full h-full object-cover">
-        </div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6">Redefining the <span class="text-red-600">Car Marketplace</span></h1>
+    {{-- Hero Section with Optional Slideshow --}}
+    <div class="relative min-h-[60vh] flex items-center overflow-hidden bg-gray-900">
+        @if($slides->count() > 0)
+            {{-- Slideshow --}}
+            <div x-data="{ 
+                active: 0, 
+                slides: {{ $slides->map(fn($s) => asset('storage/'.$s->image_path)) }},
+                next() { this.active = (this.active + 1) % this.slides.length },
+                init() { setInterval(() => this.next(), 5000) }
+            }" class="absolute inset-0">
+                <template x-for="(slide, index) in slides" :key="index">
+                    <div x-show="active === index" 
+                         x-transition:enter="transition duration-1000 ease-in-out"
+                         x-transition:enter-start="opacity-0 scale-105"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition duration-1000 ease-in-out"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         class="absolute inset-0">
+                        <img :src="slide" class="w-full h-full object-cover opacity-40">
+                    </div>
+                </template>
+            </div>
+        @else
+            <div class="absolute inset-0 opacity-40">
+                <img src="{{ $content->hero_bg_image ? asset('storage/'.$content->hero_bg_image) : 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=2000' }}" class="w-full h-full object-cover">
+            </div>
+        @endif
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6">
+                {{ $content->hero_title }}
+            </h1>
             <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                ThriftMotors is Kenya's premier destination for high-quality vehicles, built on the pillars of transparency, trust, and technological excellence.
+                {{ $content->hero_description }}
             </p>
         </div>
     </div>
@@ -21,35 +59,20 @@
     <div class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-                <h2 class="text-3xl font-bold dark:text-white mb-6 border-l-4 border-red-600 pl-4">Our Mission</h2>
-                <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6">
-                    To simplify the car buying and hiring process by providing a secure, transparent, and user-centric platform that connects quality vehicles with happy owners. We believe everyone deserves a reliable ride without the stress of traditional car dealerships.
+                <h2 class="text-3xl font-bold dark:text-white mb-6 border-l-4 border-red-600 pl-4">{{ $content->mission_title ?? 'Our Mission' }}</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">
+                    {{ $content->mission_description ?? 'To simplify the car buying and hiring process by providing a secure, transparent, and user-centric platform that connects quality vehicles with happy owners.' }}
                 </p>
-                <div class="space-y-4">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center text-red-600">
-                            <i class="fas fa-shield-alt text-xl"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold dark:text-white">Trusted Transactions</h4>
-                            <p class="text-gray-500 text-sm">Verified sellers and secure deposit systems.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center text-red-600">
-                            <i class="fas fa-check-circle text-xl"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold dark:text-white">Quality Assurance</h4>
-                            <p class="text-gray-500 text-sm">Every car listed meets our strict quality standards.</p>
-                        </div>
-                    </div>
-                </div>
+
+                <h2 class="text-3xl font-bold dark:text-white mb-6 border-l-4 border-red-600 pl-4">{{ $content->vision_title ?? 'Our Vision' }}</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6">
+                    {{ $content->vision_description ?? 'To be the most trusted automotive marketplace in East Africa, setting the standard for digital car transactions and customer satisfaction.' }}
+                </p>
             </div>
             <div class="relative">
-                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1000" alt="Mission" class="rounded-2xl shadow-2xl">
+                <img src="{{ $content->mission_image ? asset('storage/'.$content->mission_image) : 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1000' }}" alt="Mission" class="rounded-2xl shadow-2xl w-full h-[400px] object-cover">
                 <div class="absolute -bottom-6 -right-6 bg-red-600 text-white p-8 rounded-2xl shadow-xl hidden md:block">
-                    <p class="text-4xl font-bold">10+</p>
+                    <p class="text-4xl font-bold">{{ $content->experience_years }}+</p>
                     <p class="text-sm uppercase tracking-wider">Years Experience</p>
                 </div>
             </div>
@@ -61,15 +84,15 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div>
-                    <p class="text-4xl font-bold text-red-600 mb-2">500+</p>
+                    <p class="text-4xl font-bold text-red-600 mb-2">{{ $content->stat_cars_sold }}</p>
                     <p class="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-xs">Cars Sold</p>
                 </div>
                 <div>
-                    <p class="text-4xl font-bold text-red-600 mb-2">1.2k</p>
+                    <p class="text-4xl font-bold text-red-600 mb-2">{{ $content->stat_happy_clients }}</p>
                     <p class="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-xs">Happy Clients</p>
                 </div>
                 <div>
-                    <p class="text-4xl font-bold text-red-600 mb-2">50+</p>
+                    <p class="text-4xl font-bold text-red-600 mb-2">{{ $content->stat_partner_dealers }}</p>
                     <p class="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-xs">Partner Dealers</p>
                 </div>
                 <div>

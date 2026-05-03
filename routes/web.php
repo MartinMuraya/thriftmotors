@@ -20,6 +20,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
 Route::get('/services', [\App\Http\Controllers\PageController::class, 'services'])->name('services');
+Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->name('about');
 Route::get('/hire', [\App\Http\Controllers\PageController::class, 'hireCars'])->name('cars.hire');
 Route::get('/contact', [\App\Http\Controllers\PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [\App\Http\Controllers\PageController::class, 'submitContact'])->name('contact.submit');
@@ -123,4 +124,11 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::resource('reservations', AdminReservationController::class)->only(['index', 'show']);
     Route::post('/reservations/{reservation}/mark-sold', [AdminReservationController::class, 'markSold'])->name('reservations.mark-sold');
     Route::post('/reservations/{reservation}/cancel', [AdminReservationController::class, 'cancel'])->name('reservations.cancel');
+
+    // About Us Management
+    Route::get('/about', [\App\Http\Controllers\Admin\AboutController::class, 'index'])->name('about.index');
+    Route::patch('/about/content', [\App\Http\Controllers\Admin\AboutController::class, 'updateContent'])->name('about.update-content');
+    Route::post('/about/slides', [\App\Http\Controllers\Admin\AboutController::class, 'storeSlide'])->name('about.slides.store');
+    Route::patch('/about/slides/{slide}', [\App\Http\Controllers\Admin\AboutController::class, 'updateSlide'])->name('about.slides.update');
+    Route::delete('/about/slides/{slide}', [\App\Http\Controllers\Admin\AboutController::class, 'destroySlide'])->name('about.slides.destroy');
 });
