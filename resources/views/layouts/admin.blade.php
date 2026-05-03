@@ -79,6 +79,9 @@
                 <a href="{{ route('admin.about.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition {{ request()->routeIs('admin.about.*') ? 'bg-gray-800 text-red-500' : '' }}">
                     <i class="fas fa-info-circle mr-2 w-5"></i> Manage About Us
                 </a>
+                <a href="{{ route('home') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition md:hidden text-gray-300">
+                    <i class="fas fa-globe mr-2 w-5"></i> View Site
+                </a>
             </nav>
 
             <div class="p-4 border-t border-gray-800">
