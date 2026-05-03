@@ -25,9 +25,24 @@ class ProfileController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'cropped_avatar' => ['nullable', 'string'],
         ]);
 
-        if ($request->hasFile('avatar')) {
+        if ($request->filled('cropped_avatar')) {
+            // Delete old avatar if exists
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            $imageData = $request->input('cropped_avatar');
+            // Remove the data URI scheme prefix
+            $image = preg_replace('/^data:image\/\w+;base64,/', '', $imageData);
+            $image = str_replace(' ', '+', $image);
+            $imageName = 'avatars/' . uniqid() . '.png';
+
+            Storage::disk('public')->put($imageName, base64_decode($image));
+            $validated['avatar'] = $imageName;
+        } elseif ($request->hasFile('avatar')) {
             // Delete old avatar if exists
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
@@ -37,7 +52,11 @@ class ProfileController extends Controller
             $validated['avatar'] = $path;
         }
 
-        $user->update($validated);
+        $user->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'avatar' => $validated['avatar'] ?? $user->avatar,
+        ]);
 
         return back()->with('success', 'Profile updated successfully!');
     }
@@ -61,5 +80,18 @@ class ProfileController extends Controller
         ]);
 
         return back()->with('success', 'Password updated successfully!');
+    }
+
+    public function destroyAvatar(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+            $user->update(['avatar' => null]);
+            return back()->with('success', 'Profile photo removed successfully!');
+        }
+
+        return back()->with('error', 'No profile photo to remove.');
     }
 }

@@ -77,6 +77,9 @@ Route::middleware(['auth', 'verified'])->prefix('user')->name('user.')->group(fu
     // Settings Routes
     Route::get('/settings', [\App\Http\Controllers\User\ProfileController::class, 'settings'])->name('settings');
     Route::patch('/settings/password', [\App\Http\Controllers\User\ProfileController::class, 'updatePassword'])->name('settings.password');
+    
+    // Avatar Deletion
+    Route::delete('/profile/avatar', [\App\Http\Controllers\User\ProfileController::class, 'destroyAvatar'])->name('profile.avatar.destroy');
 });
 
 /*

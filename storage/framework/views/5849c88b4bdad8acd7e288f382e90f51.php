@@ -23,6 +23,7 @@
                         <i class="fas fa-camera text-white text-2xl"></i>
                     </label>
                     <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*" onchange="previewImage(this)">
+                    <input type="hidden" name="cropped_avatar" id="cropped-data">
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold dark:text-white">Profile Photo</h3>
@@ -85,19 +86,93 @@ unset($__errorArgs, $__bag); ?>
     </div>
 </div>
 
+<?php $__env->startPush('styles'); ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+<style>
+    .cropper-view-box, .cropper-face {
+        border-radius: 50%;
+    }
+</style>
+<?php $__env->stopPush(); ?>
+
 <?php $__env->startPush('scripts'); ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 <script>
+    let cropper;
+    const avatarInput = document.getElementById('avatar-input');
+    const avatarPreview = document.getElementById('avatar-preview');
+    const cropModal = document.getElementById('crop-modal');
+    const cropImage = document.getElementById('crop-image');
+    const croppedDataInput = document.getElementById('cropped-data');
+
     function previewImage(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
+            const reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('avatar-preview').src = e.target.result;
+                cropImage.src = e.target.result;
+                cropModal.classList.remove('hidden');
+                
+                if (cropper) {
+                    cropper.destroy();
+                }
+                
+                cropper = new Cropper(cropImage, {
+                    aspectRatio: 1,
+                    viewMode: 2,
+                    guides: true,
+                    autoCropArea: 1,
+                    responsive: true,
+                });
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    function cancelCrop() {
+        cropModal.classList.add('hidden');
+        avatarInput.value = '';
+        if (cropper) {
+            cropper.destroy();
+        }
+    }
+
+    function applyCrop() {
+        const canvas = cropper.getCroppedCanvas({
+            width: 400,
+            height: 400,
+        });
+        
+        avatarPreview.src = canvas.toDataURL();
+        croppedDataInput.value = canvas.toDataURL(); // Send as base64
+        cropModal.classList.add('hidden');
+    }
 </script>
 <?php $__env->stopPush(); ?>
+
+
+<div id="crop-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/60" onclick="cancelCrop()"></div>
+    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden z-10 border dark:border-gray-700">
+        <div class="p-4 border-b dark:border-gray-700 flex justify-between items-center">
+            <h3 class="text-lg font-bold dark:text-white">Crop & Center Photo</h3>
+            <button onclick="cancelCrop()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-2xl leading-none">&times;</button>
+        </div>
+        <div class="p-6">
+            <div class="max-h-[60vh] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900">
+                <img id="crop-image" src="" class="max-w-full">
+            </div>
+            <p class="text-xs text-gray-500 mt-4 text-center">Drag to move and resize the circle to center your face.</p>
+        </div>
+        <div class="p-4 bg-gray-50 dark:bg-gray-700/50 flex gap-3">
+            <button type="button" onclick="applyCrop()" class="flex-1 bg-red-600 text-white py-2 rounded-lg font-bold hover:bg-red-700 transition">
+                Apply Crop
+            </button>
+            <button type="button" onclick="cancelCrop()" class="flex-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white py-2 rounded-lg font-bold hover:bg-gray-300 dark:hover:bg-gray-500 transition">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH F:\thriftmotors\resources\views/user/profile.blade.php ENDPATH**/ ?>

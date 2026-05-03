@@ -213,6 +213,15 @@
             <?php endif; ?>
         </div>
 
+        <?php if(!request()->routeIs('home')): ?>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+                <button onclick="history.back()" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition font-semibold group">
+                    <i class="fas fa-arrow-left mr-2 transform group-hover:-translate-x-1 transition-transform"></i>
+                    Back
+                </button>
+            </div>
+        <?php endif; ?>
+
         <?php echo $__env->yieldContent('content'); ?>
     </main>
 
