@@ -65,9 +65,28 @@ Route::post('/reset-password', [\App\Http\Controllers\PasswordResetController::c
 | User Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Email Verification Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('user.dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Illuminate\Http\Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +94,7 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Cars Management

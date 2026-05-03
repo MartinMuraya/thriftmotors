@@ -21,6 +21,8 @@ class AuthController extends Controller
             'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
         ]);
 
+        event(new \Illuminate\Auth\Events\Registered($user));
+
         Auth::login($user);
 
         return redirect()->route('user.dashboard')->with('success', 'Registration successful!');
