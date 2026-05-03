@@ -67,6 +67,14 @@ Route::post('/reset-password', [\App\Http\Controllers\PasswordResetController::c
 */
 Route::middleware(['auth', 'verified'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+    
+    // Profile Routes
+    Route::get('/profile', [\App\Http\Controllers\User\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [\App\Http\Controllers\User\ProfileController::class, 'update'])->name('profile.update');
+    
+    // Settings Routes
+    Route::get('/settings', [\App\Http\Controllers\User\ProfileController::class, 'settings'])->name('settings');
+    Route::patch('/settings/password', [\App\Http\Controllers\User\ProfileController::class, 'updatePassword'])->name('settings.password');
 });
 
 /*

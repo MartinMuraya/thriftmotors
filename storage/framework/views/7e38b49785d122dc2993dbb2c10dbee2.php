@@ -63,15 +63,55 @@
                     </button>
 
                     <?php if(auth()->guard()->check()): ?>
-                        <?php if(auth()->user()->is_admin): ?>
-                            <a href="<?php echo e(route('admin.dashboard')); ?>" class="text-red-600 dark:text-red-500 font-semibold hover:text-red-700 dark:hover:text-red-400">Admin Dashboard</a>
-                        <?php else: ?>
-                            <a href="<?php echo e(route('user.dashboard')); ?>" class="text-red-600 dark:text-red-500 font-semibold hover:text-red-700 dark:hover:text-red-400">My Dashboard</a>
-                        <?php endif; ?>
-                        <form method="POST" action="<?php echo e(route('logout')); ?>" class="inline">
-                            <?php echo csrf_field(); ?>
-                            <button type="submit" class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition">Logout</button>
-                        </form>
+                        <div class="relative" x-data="{ open: false }">
+                            <button @click="open = !open" class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 focus:outline-none">
+                                <img src="<?php echo e(auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&color=7F9CF5&background=EBF4FF'); ?>" 
+                                     alt="<?php echo e(auth()->user()->name); ?>" 
+                                     class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 object-cover">
+                                <span class="font-semibold"><?php echo e(auth()->user()->name); ?></span>
+                                <i class="fas fa-chevron-down text-xs transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                            </button>
+
+                            <div x-show="open" 
+                                 @click.away="open = false"
+                                 x-transition:enter="transition ease-out duration-100"
+                                 x-transition:enter-start="transform opacity-0 scale-95"
+                                 x-transition:enter-end="transform opacity-100 scale-100"
+                                 class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-2 border border-gray-100 dark:border-gray-700 z-50">
+                                
+                                <div class="px-4 py-2 border-b dark:border-gray-700">
+                                    <p class="text-sm font-semibold dark:text-white"><?php echo e(auth()->user()->name); ?></p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate"><?php echo e(auth()->user()->email); ?></p>
+                                </div>
+
+                                <?php if(auth()->user()->is_admin): ?>
+                                    <a href="<?php echo e(route('admin.dashboard')); ?>" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <i class="fas fa-chart-line mr-2"></i> Admin Dashboard
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo e(route('user.dashboard')); ?>" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <i class="fas fa-tachometer-alt mr-2"></i> My Dashboard
+                                    </a>
+                                <?php endif; ?>
+
+                                <a href="<?php echo e(route('user.profile.edit')); ?>" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <i class="fas fa-user-edit mr-2"></i> My Profile
+                                </a>
+
+                                <a href="<?php echo e(route('user.settings')); ?>" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <i class="fas fa-cog mr-2"></i> Settings
+                                </a>
+
+                                <div class="border-t dark:border-gray-700 mt-2"></div>
+
+                                <form method="POST" action="<?php echo e(route('logout')); ?>">
+                                    <?php echo csrf_field(); ?>
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     <?php else: ?>
                         <a href="<?php echo e(route('login')); ?>" class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition">Login</a>
                         <a href="<?php echo e(route('register')); ?>" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition font-semibold">Sign Up</a>
@@ -117,6 +157,15 @@
                         <?php else: ?>
                             <a href="<?php echo e(route('user.dashboard')); ?>" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">My Dashboard</a>
                         <?php endif; ?>
+                        
+                        <a href="<?php echo e(route('user.profile.edit')); ?>" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">
+                            My Profile
+                        </a>
+
+                        <a href="<?php echo e(route('user.settings')); ?>" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">
+                            Settings
+                        </a>
+
                         <form method="POST" action="<?php echo e(route('logout')); ?>" class="block">
                             <?php echo csrf_field(); ?>
                             <button type="submit" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">Logout</button>
