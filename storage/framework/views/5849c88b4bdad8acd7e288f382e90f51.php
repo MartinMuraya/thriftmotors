@@ -13,31 +13,47 @@
             <?php echo method_field('PATCH'); ?>
 
             <!-- Avatar Section -->
-            <div class="flex items-center space-x-6 pb-6 border-b dark:border-gray-700">
+            <div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 pb-8 border-b dark:border-gray-700">
                 <div class="relative group">
                     <img id="avatar-preview" 
                          src="<?php echo e($user->avatar ? asset('storage/' . $user->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&size=128&color=7F9CF5&background=EBF4FF'); ?>" 
                          alt="<?php echo e($user->name); ?>" 
-                         class="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg">
+                         class="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-xl">
                     <label for="avatar-input" class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition">
                         <i class="fas fa-camera text-white text-2xl"></i>
                     </label>
                     <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*" onchange="previewImage(this)">
                     <input type="hidden" name="cropped_avatar" id="cropped-data">
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold dark:text-white">Profile Photo</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Click the image to upload a new one.</p>
-                    <?php $__errorArgs = ['avatar'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                        <p class="text-red-600 text-xs"><?php echo e($message); ?></p>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                
+                <div class="flex-1 text-center md:text-left">
+                    <h3 class="text-xl font-bold dark:text-white mb-1">Profile Photo</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Click the photo or use the buttons below to manage your avatar.</p>
+                    
+                    <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                        
+                        <button type="button" 
+                                onclick="document.getElementById('view-modal').classList.remove('hidden')"
+                                class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm font-semibold">
+                            <i class="fas fa-eye mr-2"></i> View
+                        </button>
+
+                        
+                        <button type="button" 
+                                onclick="document.getElementById('avatar-input').click()"
+                                class="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition text-sm font-semibold">
+                            <i class="fas fa-pen mr-2"></i> Change
+                        </button>
+
+                        
+                        <?php if($user->avatar): ?>
+                            <button type="button" 
+                                    onclick="if(confirm('Are you sure you want to remove your profile photo?')) document.getElementById('delete-avatar-form').submit();"
+                                    class="inline-flex items-center px-4 py-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition text-sm font-semibold">
+                                <i class="fas fa-trash-alt mr-2"></i> Remove
+                            </button>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 
@@ -83,6 +99,24 @@ unset($__errorArgs, $__bag); ?>
                 </button>
             </div>
         </form>
+    </div>
+</div>
+
+
+<form id="delete-avatar-form" action="<?php echo e(route('user.profile.avatar.destroy')); ?>" method="POST" class="hidden">
+    <?php echo csrf_field(); ?>
+    <?php echo method_field('DELETE'); ?>
+</form>
+
+
+<div id="view-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/90" onclick="document.getElementById('view-modal').classList.add('hidden')"></div>
+    <div class="relative max-w-2xl w-full flex flex-col items-center">
+        <button onclick="document.getElementById('view-modal').classList.add('hidden')" class="absolute -top-12 right-0 text-white text-4xl">&times;</button>
+        <img src="<?php echo e($user->avatar ? asset('storage/' . $user->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&size=512&color=7F9CF5&background=EBF4FF'); ?>" 
+             alt="<?php echo e($user->name); ?>" 
+             class="max-w-full max-h-[80vh] rounded-lg shadow-2xl border-4 border-white dark:border-gray-800">
+        <p class="text-white mt-4 font-semibold text-lg"><?php echo e($user->name); ?></p>
     </div>
 </div>
 
