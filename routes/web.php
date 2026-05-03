@@ -21,6 +21,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
 Route::get('/services', [\App\Http\Controllers\PageController::class, 'services'])->name('services');
 Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->name('about');
+Route::get('/terms', [\App\Http\Controllers\PageController::class, 'terms'])->name('terms');
+Route::get('/privacy', [\App\Http\Controllers\PageController::class, 'privacy'])->name('privacy');
 Route::get('/hire', [\App\Http\Controllers\PageController::class, 'hireCars'])->name('cars.hire');
 Route::get('/contact', [\App\Http\Controllers\PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [\App\Http\Controllers\PageController::class, 'submitContact'])->name('contact.submit');
