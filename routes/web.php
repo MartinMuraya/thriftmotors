@@ -28,8 +28,10 @@ Route::get('/cars/{slug}', [CarController::class, 'show'])->name('cars.show');
 Route::post('/cars/{car}/inquiries', [CarController::class, 'storeInquiry'])->name('inquiries.store');
 
 // Car Reservation + M-Pesa
-Route::post('/cars/{car}/reserve', [ReservationController::class, 'store'])->name('cars.reserve');
-Route::get('/reservations/{reservation}/status', [ReservationController::class, 'checkStatus'])->name('reservations.status');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/cars/{car}/reserve', [ReservationController::class, 'store'])->name('cars.reserve');
+    Route::get('/reservations/{reservation}/status', [ReservationController::class, 'checkStatus'])->name('reservations.status');
+});
 
 /*
 |--------------------------------------------------------------------------

@@ -183,14 +183,32 @@
     <main class="min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
             @if(session('success'))
-                <div class="bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-600 text-green-700 dark:text-green-400 px-4 py-3 rounded relative mb-4 shadow-sm">
+                <div x-data="{ show: true }" 
+                     x-show="show" 
+                     x-init="setTimeout(() => show = false, 8000)"
+                     x-transition:leave="transition ease-in duration-300"
+                     x-transition:leave-start="opacity-100 transform scale-100"
+                     x-transition:leave-end="opacity-0 transform scale-95"
+                     class="bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-600 text-green-700 dark:text-green-400 px-4 py-3 rounded relative mb-4 shadow-sm flex justify-between items-center">
                     <span class="block sm:inline">{{ session('success') }}</span>
+                    <button @click="show = false" class="text-green-700 dark:text-green-400 hover:text-green-900 dark:hover:text-white transition">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-400 px-4 py-3 rounded relative mb-4 shadow-sm">
+                <div x-data="{ show: true }" 
+                     x-show="show" 
+                     x-init="setTimeout(() => show = false, 8000)"
+                     x-transition:leave="transition ease-in duration-300"
+                     x-transition:leave-start="opacity-100 transform scale-100"
+                     x-transition:leave-end="opacity-0 transform scale-95"
+                     class="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-400 px-4 py-3 rounded relative mb-4 shadow-sm flex justify-between items-center">
                     <span class="block sm:inline">{{ session('error') }}</span>
+                    <button @click="show = false" class="text-red-700 dark:text-red-400 hover:text-red-900 dark:hover:text-white transition">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
             @endif
         </div>

@@ -152,21 +152,32 @@
                     {{-- RESERVE CTA --}}
                     @if($car->status === 'available')
                         @auth
-                            <button
-                                x-data
-                                @click="$dispatch('open-reservation-modal')"
-                                class="block w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition font-bold text-center text-lg shadow-lg">
-                                <i class="fas fa-key mr-2"></i> Reserve This Car
-                            </button>
-                            <p class="text-center text-xs text-gray-500">
-                                <i class="fas fa-shield-alt mr-1 text-green-600"></i>
-                                KES {{ number_format(config('thriftmotors.deposit_amount', 5000)) }} deposit · Secured for 14 days
-                            </p>
+                            @if(auth()->user()->hasVerifiedEmail())
+                                <button
+                                    x-data
+                                    @click="$dispatch('open-reservation-modal')"
+                                    class="block w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition font-bold text-center text-lg shadow-lg">
+                                    <i class="fas fa-key mr-2"></i> Reserve This Car
+                                </button>
+                                <p class="text-center text-xs text-gray-500 mt-2">
+                                    <i class="fas fa-shield-alt mr-1 text-green-600"></i>
+                                    KES {{ number_format(config('thriftmotors.deposit_amount', 5000)) }} deposit · Secured for 14 days
+                                </p>
+                            @else
+                                <a href="{{ route('verification.notice') }}" 
+                                   class="block w-full bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition font-bold text-center text-lg shadow-lg">
+                                    <i class="fas fa-envelope-open mr-2"></i> Verify Email to Reserve
+                                </a>
+                                <p class="text-center text-xs text-red-600 dark:text-red-400 mt-2">
+                                    <i class="fas fa-exclamation-triangle mr-1"></i>
+                                    Please verify your email address to make a reservation.
+                                </p>
+                            @endif
                         @else
                             <a href="{{ route('login') }}" class="block w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition font-bold text-center text-lg shadow-lg">
                                 <i class="fas fa-sign-in-alt mr-2"></i> Login to Reserve
                             </a>
-                            <p class="text-center text-xs text-gray-500">
+                            <p class="text-center text-xs text-gray-500 mt-2">
                                 You must be logged in to make a reservation.
                             </p>
                         @endauth
