@@ -283,11 +283,11 @@
                     <ul class="space-y-3 text-gray-600 dark:text-gray-400">
                         <li class="flex items-start">
                             <i class="fas fa-envelope mt-1 mr-3 text-red-600 dark:text-red-500"></i>
-                            <span>info@thriftmotors.com</span>
+                            <span>gathongomoses14@gmail.com</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-phone mt-1 mr-3 text-red-600 dark:text-red-500"></i>
-                            <span>+254 700 000000</span>
+                            <span>+254 718 571870</span>
                         </li>
                     </ul>
                 </div>
