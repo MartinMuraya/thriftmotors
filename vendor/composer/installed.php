@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'thriftmotors/marketplace',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'eb96c08f8ec34391a75be585f9a9f21346331f97',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -1257,9 +1257,9 @@
             'dev_requirement' => true,
         ),
         'thriftmotors/marketplace' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'eb96c08f8ec34391a75be585f9a9f21346331f97',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
