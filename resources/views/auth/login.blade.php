@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-md mx-auto px-4 py-16">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-transparent dark:border-gray-700 p-8 transition-colors duration-300">
-        <h2 class="text-2xl font-bold mb-6 text-center dark:text-white">Log in to your account</h2>
+        <h2 class="text-2xl font-bold mb-6 text-center dark:text-white">Login to your account</h2>
 
         <form action="{{ route('login') }}" method="POST" class="space-y-4">
             @csrf
@@ -48,8 +48,6 @@
                 <i class="fas fa-sign-in-alt mr-2"></i> Login
             </button>
         </form>
-
-
 
         <p class="text-center text-gray-600 dark:text-gray-400 text-sm mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
             Don't have an account? 
